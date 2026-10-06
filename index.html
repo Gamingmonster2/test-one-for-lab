@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#1e3a8a">
+<title>Test</title>
+<style>
+  /* ---- Smoothly animatable colour variables (Chromium/Edge/Safari 16.4+) ---- */
+  @property --c1 { syntax: '<color>'; inherits: true; initial-value: #0f172a; }
+  @property --c2 { syntax: '<color>'; inherits: true; initial-value: #1e3a8a; }
+  @property --c3 { syntax: '<color>'; inherits: true; initial-value: #7c3aed; }
+  @property --accent { syntax: '<color>'; inherits: true; initial-value: #ffd166; }
+
+  :root {
+    --c1: #0f172a;
+    --c2: #1e3a8a;
+    --c3: #7c3aed;
+    --accent: #ffd166;
+    --text: #f8fafc;
+    --card: rgba(255, 255, 255, 0.08);
+    --card-brd: rgba(255, 255, 255, 0.18);
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body { margin: 0; padding: 0; }
+
+  body {
+    min-height: 100vh;
+    color: var(--text);
+    font-family: "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: linear-gradient(135deg, var(--c1) 0%, var(--c2) 50%, var(--c3) 100%);
+    transition: --c1 2s ease, --c2 2s ease, --c3 2s ease, --accent 2s ease;
+    padding: 3rem 1.25rem 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* Soft moving glow for extra life */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: -20vh -20vw;
+    background:
+      radial-gradient(40vw 40vw at 20% 20%, rgba(255, 255, 255, 0.10), transparent 60%),
+      radial-gradient(45vw 45vw at 85% 80%, rgba(255, 255, 255, 0.08), transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  header, main, footer { position: relative; z-index: 1; width: 100%; }
+
+  header { text-align: center; margin-bottom: 2.5rem; }
+
+  .badge {
+    display: inline-block;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 0.45rem 1rem;
+    border-radius: 999px;
+    color: var(--accent);
+    border: 1px solid var(--card-brd);
+    background: var(--card);
+    backdrop-filter: blur(8px);
+    margin-bottom: 1.25rem;
+  }
+
+  h1.hero {
+    font-size: clamp(3.5rem, 14vw, 9rem);
+    line-height: 1;
+    margin: 0;
+    font-weight: 800;
+    background: linear-gradient(120deg, #ffffff 0%, var(--accent) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: pop 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+    text-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+  }
+
+  .subtitle {
+    margin: 1rem auto 0;
+    max-width: 640px;
+    font-size: clamp(1rem, 2.4vw, 1.25rem);
+    opacity: 0.9;
+    line-height: 1.7;
+  }
+
+  .word-bank {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    gap: 1rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--card-brd);
+    border-radius: 1.1rem;
+    padding: 1.25rem 1rem;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.4s ease;
+    animation: pop 0.7s both;
+  }
+
+  .card:hover {
+    transform: translateY(-6px);
+    border-color: var(--accent);
+    box-shadow: 0 22px 50px rgba(0, 0, 0, 0.35);
+  }
+
+  .card .word {
+    font-size: clamp(1.35rem, 4vw, 1.8rem);
+    font-weight: 700;
+    margin: 0 0 0.4rem;
+    color: var(--accent);
+    text-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+    transition: color 0.6s ease;
+  }
+
+  .card .name { margin: 0; font-size: 0.85rem; opacity: 0.85; }
+  .card .native { margin: 0.2rem 0 0; font-size: 0.8rem; opacity: 0.6; }
+
+  footer {
+    margin-top: 3rem;
+    text-align: center;
+    font-size: 0.85rem;
+    opacity: 0.8;
+  }
+  footer a { color: var(--accent); }
+  footer .dot { opacity: 0.5; margin: 0 0.5rem; }
+
+  @keyframes pop {
+    from { opacity: 0; transform: translateY(18px) scale(0.98); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, body { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+  <header>
+    <span class="badge">labs.ly &middot; test</span>
+    <h1 class="hero" dir="auto">مرحبا</h1>
+    <p class="subtitle">
+      The same friendly word — <strong>Hello</strong> — in 26 languages,
+      starting with Arabic. The colours change every 10&nbsp;seconds.
+    </p>
+  </header>
+
+  <main>
+    <section class="word-bank" id="wordBank" aria-label="Hello in many languages"></section>
+  </main>
+
+  <footer>
+    <p>
+      Demo project for <strong>labs.ly</strong>
+      <span class="dot">&middot;</span>
+      Greetings sourced from
+      <a href="https://en.wikipedia.org/wiki/Hello" rel="noopener" target="_blank">Wikipedia</a>
+    </p>
+  </footer>
+
+<script>
+  /* 26 greetings — Arabic first, then the rest of the world. */
+  const greetings = [
+    { word: "مرحبا",            name: "Arabic",     native: "العربية" },
+    { word: "Hello",            name: "English",    native: "English" },
+    { word: "Hola",             name: "Spanish",    native: "Español" },
+    { word: "Bonjour",          name: "French",     native: "Français" },
+    { word: "Hallo",            name: "German",     native: "Deutsch" },
+    { word: "Ciao",             name: "Italian",    native: "Italiano" },
+    { word: "Olá",              name: "Portuguese", native: "Português" },
+    { word: "Привет",           name: "Russian",    native: "Русский" },
+    { word: "你好",             name: "Chinese",    native: "中文" },
+    { word: "こんにちは",        name: "Japanese",   native: "日本語" },
+    { word: "안녕하세요",        name: "Korean",     native: "한국어" },
+    { word: "नमस्ते",            name: "Hindi",      native: "हिन्दी" },
+    { word: "হ্যালো",           name: "Bengali",    native: "বাংলা" },
+    { word: "السلام علیکم",     name: "Urdu",       native: "اردو" },
+    { word: "Merhaba",          name: "Turkish",    native: "Türkçe" },
+    { word: "سلام",             name: "Persian",    native: "فارسی" },
+    { word: "שלום",             name: "Hebrew",     native: "עברית" },
+    { word: "Γειά σου",         name: "Greek",      native: "Ελληνικά" },
+    { word: "Hallo",            name: "Dutch",      native: "Nederlands" },
+    { word: "Hej",              name: "Swedish",    native: "Svenska" },
+    { word: "Cześć",            name: "Polish",     native: "Polski" },
+    { word: "Halo",             name: "Indonesian", native: "Bahasa Indonesia" },
+    { word: "Habari",           name: "Swahili",    native: "Kiswahili" },
+    { word: "Привіт",           name: "Ukrainian",  native: "Українська" },
+    { word: "Xin chào",         name: "Vietnamese", native: "Tiếng Việt" },
+    { word: "สวัสดี",            name: "Thai",       native: "ไทย" }
+  ];
+
+  const bank = document.getElementById("wordBank");
+  greetings.forEach((g, i) => {
+    const card = document.createElement("article");
+    card.className = "card";
+    card.style.animationDelay = (i * 45) + "ms";
+    card.innerHTML =
+      '<p class="word" dir="auto"></p>' +
+      '<p class="name"></p>' +
+      '<p class="native" dir="auto"></p>';
+    card.querySelector(".word").textContent = g.word;
+    card.querySelector(".name").textContent = g.name;
+    card.querySelector(".native").textContent = g.native;
+    bank.appendChild(card);
+  });
+
+  /* Three colour themes, rotated every 10 seconds with a smooth 2s fade. */
+  const themes = [
+    { c1: "#0f172a", c2: "#1e3a8a", c3: "#7c3aed", accent: "#ffd166" }, // midnight / blue / violet
+    { c1: "#111827", c2: "#b91c1c", c3: "#f59e0b", accent: "#fde68a" }, // charcoal / red / amber
+    { c1: "#022c22", c2: "#065f46", c3: "#0ea5e9", accent: "#86efac" }  // deep green / emerald / sky
+  ];
+
+  const root = document.documentElement;
+  let themeIndex = 0;
+
+  function applyTheme(t) {
+    root.style.setProperty("--c1", t.c1);
+    root.style.setProperty("--c2", t.c2);
+    root.style.setProperty("--c3", t.c3);
+    root.style.setProperty("--accent", t.accent);
+  }
+
+  applyTheme(themes[0]);
+  setInterval(() => {
+    themeIndex = (themeIndex + 1) % themes.length;
+    applyTheme(themes[themeIndex]);
+  }, 10000);
+</script>
+</body>
+</html>
